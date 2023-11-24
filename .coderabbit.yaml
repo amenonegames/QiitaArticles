@@ -6,7 +6,8 @@ reviews:
   review_status: true
   collapse_walkthrough: false
   path_filters:
-    - ["public/**","private/**"]
+    - "public/**"
+    - "private/**"
   path_instructions:
     - path: "**"
       instructions: "この記事はQiitaに投稿する技術記事です。多くの人が記事を読んでくれるように、題名のつけ方、わかりやすい書き方、コード上の誤りなどについて指摘してください。"
