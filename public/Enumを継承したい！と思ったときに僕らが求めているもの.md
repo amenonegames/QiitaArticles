@@ -1,7 +1,8 @@
 ---
 title: Enumを継承したい！と思ったときに僕らが求めているもの
 tags:
-  - ''
+  - 'Unity'
+  - 'C#'
 private: false
 updated_at: ''
 id: null
@@ -22,8 +23,8 @@ EnumっぽいStructを作る内容など眺めては、「これなのか…？�
 Enumの何が我々をそんなに惹きつけるのでしょうか？
 何と言っても
 <ul>
-<li><font color=#f08300><strong>圧倒的作りやすさ</strong></color>
-<li><font color=#f08300><strong>UnitySerializeとの相性の良さ</strong></color>
+<li><font color=#f08300><strong>圧倒的作りやすさ</strong></font>
+<li><font color=#f08300><strong>UnitySerializeとの相性の良さ</strong></font>
 </ul>
 でしょう！
 
@@ -31,11 +32,11 @@ Enumの何が我々をそんなに惹きつけるのでしょうか？
 では、そんな魅力的なEnumを継承して、やりたいこととは何でしょう？
 ずばり
 <ul>
-<li><font color=#f08300><strong>異なるEnumを既定クラスで指定して同質に扱いたい</strong></color>
+<li><font color=#f08300><strong>異なるEnumを既定クラスで指定して同質に扱いたい</strong></font>
 </ul>
 ひいては
 <ul>
-<li><font color=#f08300><strong>同質のEnumを引数に持つメソッドをまとめたい</strong></color>
+<li><font color=#f08300><strong>同質のEnumを引数に持つメソッドをまとめたい</strong></font>
 </ul>
 
 のです！
@@ -48,9 +49,9 @@ Enumの何が我々をそんなに惹きつけるのでしょうか？
 話は簡単です。以下の条件を満たせば良いのです！
 
 <ol>
-<li><font color=#f08300><strong>Enumの圧倒的作りやすさは保つ</strong></color>
-<li><font color=#f08300><strong>EnumのUnitySerializeとの相性の良さもそのままに</strong></color>
-<li><font color=#f08300><strong>同質のEnumを引数に持つメソッドをまとることができる</strong></color>
+<li><font color=#f08300><strong>Enumの圧倒的作りやすさは保つ</strong></font>
+<li><font color=#f08300><strong>EnumのUnitySerializeとの相性の良さもそのままに</strong></font>
+<li><font color=#f08300><strong>同質のEnumを引数に持つメソッドをまとることができる</strong></font>
 </ol>
 
 1番と2番を達成するためには、Enumをそのまま使うしかなさそうです。
@@ -63,7 +64,7 @@ Intにキャストすれば、まとめること自体は簡単です。
 # 同質性を整理する
 ここからは、具体的なケースをもとに考えていきます。
 まずは、まとめようとしているEnumがどういった点で同質なのかを整理します。
-今回は、プレイヤーとモブと敵の三者について、状態を司るEnumが以下のようにあるとします。
+今回は、プレイヤーと敵の二者について、状態を司るEnumが以下のようにあるとします。
 
 ```csharp
 public enum PlayerState
@@ -79,13 +80,9 @@ public enum EnemyState
     Angry,
     Sad
 }
-
-public enum MobState
-{
-    Normal,
-}
-
 ```
+
+# まとめたい処理を整理する
 
 そしてこれらは、Presenterのイベント通知や、ロード時のデータなどを使って、
 各キャラクターのスコープの外から特定のStateに応じた処理をリクエストされる可能性があるとします。
@@ -97,9 +94,6 @@ public void ChangePlayerState ( PlayerState state){ //変更処理 }
 ```csharp
 public void ChangeEnemyState( EnemyState state ){ //変更処理 }
 ```
-```csharp
-public void ChangeMobState( MobState state ){ //変更処理 }
-```
 
 これらのステートは同質のものを扱っていて、
 変更処理の内部で行われることもほとんど同一だとします。
@@ -110,6 +104,7 @@ public void ChangeMobState( MobState state ){ //変更処理 }
 public void ChangeCharacterState( int stateNo ){ //変更処理 }
 ```
 
+# 指定のEnumからしか生成できないStructを作る
 しかしこれでは、もともとPlayerEnumだったIntを
 誤ってEnemyのステートを変更するために使ってしまうリスクがありそうです。
 無作為にどんなIntでも受け付けてしまう形は、いかにもバギーな感じがします。
@@ -126,15 +121,6 @@ public struct StateInt
         Value = value;
     }
 
-    public static implicit operator int( StateInt stateInt )
-    {
-        return stateInt.Value;
-    }
-
-    public static implicit operator StateInt( int value )
-    {
-        return new StateInt( value );
-    }
 }
 ```
 
@@ -152,13 +138,124 @@ public struct StateInt
         Value = value;
     }
 
-    public static implicit operator int( StateInt stateInt )
+    public StateInt( EnemyState value )
     {
-        return stateInt.Value;
-    }
-
-    public static implicit operator StateInt( int value )
-    {
-        return new StateInt( value );
+        Value = value;
     }
 }
+```
+
+# 生成時と同じ型へのキャスト以外はエラーを出す
+
+さらに、もともとどのタイプからキャストされたかを示すEnumを作成し、
+
+生成したときに、どのタイプからキャストされたかを保持するようにします。
+
+```csharp
+public struct StateInt 
+{
+    public readonly int Value { get; private set; }
+    public readonly StateType Type { get; private set; }    
+
+    public StateInt( PlayerState value )
+    {
+        Value = value;
+        Type = StateType.Player;
+    }
+
+    public StateInt( EnemyState value )
+    {
+        Value = value;
+        Type = StateType.Enemy;
+    }
+    
+    private enum StateType
+    {
+        Player,
+        Enemy,
+    }
+}
+```
+
+保持されたTypeを使って、キャスト元のEnumに戻すメソッドと、
+それ以外の型にキャストされた時にエラーを出すメソッドを実装します。
+
+```csharp
+public struct StateInt 
+{
+    public readonly int Value { get; private set; }
+    public readonly StateType Type { get; private set; }    
+
+    //~中略~
+    
+    public static implicit operator PlayerState (StateInt stateInt)
+    {
+        if(stateInt._characterType != CharacterType.Player) 
+        {
+            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Player );
+        }
+        return (PlayerState)stateInt._stateNo;
+    }
+    
+    public static implicit operator EnemyState (StateInt stateInt)
+    {
+        if(stateInt._characterType != CharacterType.Enemy) 
+        {
+            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Enemy );
+        }
+        return (EnemyState)stateInt._stateNo;
+    }
+}
+```
+
+# メソッドをまとめてみる
+これで、不正なキャストがあれば明確に例外が発生するようになりました！
+では、先程のメソッドをもったクラスをまとめてみましょう。
+
+```csharp
+public abstract class CharacterStateControllerBase: Monobehaviour
+{
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
+
+    public void ChangeCharacterState(StateInt state)
+    {
+        Sprite stateAnimation = GetSprite(state);
+        _spriteRenderer.sprite = stateAnimation;
+    }
+    protected abstract Sprite GetSprite(StateInt state);
+}
+
+pulic class PlayerStateController : CharacterStateControllerBase
+{
+    //実際はSerializedDictionaryなどを使ってください。
+    //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
+    [SerializedField]
+    private Dictionary<PlayerState,Sprite> _stateStandPictures;
+    
+    protected override Sprite GetSprite(StateInt state)
+    {
+        return _stateStandPictures[(PlayerState)state];
+    }
+}
+
+pulic class EnemyStateController : CharacterStateControllerBase
+{
+    //実際はSerializedDictionaryなどを使ってください。
+    //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
+    [SerializedField]
+    private Dictionary<EnemyState,Sprite> _stateStandPictures;
+    
+    protected override Sprite GetSprite(StateInt state)
+    {
+        return _stateStandPictures[(EnemyState)state];
+    }
+}
+```
+
+# まとめ
+以上で、Enumを継承したい！と思ったときに僕らが求めているものを実現することができました！
+
+同質の処理をBaseクラスにまとめて、
+データとして異なる部分だけを派生クラスに持たせることで、 保守のしやすい構造になったかと思います。
+Enumを継承したい！と思ったときに思い出していただけると幸いです！
