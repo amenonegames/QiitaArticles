@@ -229,7 +229,7 @@ public class PlayerStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
-    [SerializedField]
+    [SerializeField]
     private Dictionary<PlayerState,Sprite> _stateStandPictures;
     
     protected override Sprite GetSprite(StateInt state)
@@ -242,7 +242,7 @@ public class EnemyStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
-    [SerializedField]
+    [SerializeField]
     private Dictionary<EnemyState,Sprite> _stateStandPictures;
     
     protected override Sprite GetSprite(StateInt state)
