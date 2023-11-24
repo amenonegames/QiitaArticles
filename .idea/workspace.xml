@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ecf9e84-4e40-4564-9dd4-14dcbdf3522a" name="Changes" comment="記事修正">
-      <change beforePath="$PROJECT_DIR$/.coderabbit.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.coderabbit.yaml" afterDir="false" />
+    <list default="true" id="0ecf9e84-4e40-4564-9dd4-14dcbdf3522a" name="Changes" comment="不要なファイルを削除">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Enumを継承したい！と思ったときに僕らが求めているもの.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/Enumを継承したい！と思ったときに僕らが求めているもの.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Generatorでプロパティを自動実装してみた.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/Generatorでプロパティを自動実装してみた.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +95,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="記事のコミット" />
     <MESSAGE value="記事修正" />
-    <option name="LAST_COMMIT_MESSAGE" value="記事修正" />
+    <MESSAGE value="codeRabbitInst修正" />
+    <MESSAGE value="不要なファイルを削除" />
+    <option name="LAST_COMMIT_MESSAGE" value="不要なファイルを削除" />
   </component>
 </project>

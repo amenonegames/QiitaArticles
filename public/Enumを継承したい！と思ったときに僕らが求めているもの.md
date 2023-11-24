@@ -6,7 +6,7 @@ tags:
 private: false
 updated_at: '2023-11-25T02:38:14+09:00'
 id: 26ede420cf916ac0b916
-organization_url_name: null
+organization_url_name: unity-game-dev-guild
 slide: false
 ignorePublish: true
 ---
