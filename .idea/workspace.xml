@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ecf9e84-4e40-4564-9dd4-14dcbdf3522a" name="Changes" comment="記事のコミット">
-      <change beforePath="$PROJECT_DIR$/public/Generatorでプロパティを自動実装してみた.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/Generatorでプロパティを自動実装してみた.md" afterDir="false" />
+    <list default="true" id="0ecf9e84-4e40-4564-9dd4-14dcbdf3522a" name="Changes" comment="記事修正">
+      <change beforePath="$PROJECT_DIR$/.coderabbit.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.coderabbit.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +84,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Source-Generatorでプロパティを自動実装してみた",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/tamed/Documents/project/QiitaArticles",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "writerside.last.selected.productQiitaArticles": "t"
@@ -92,6 +93,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="記事のコミット" />
-    <option name="LAST_COMMIT_MESSAGE" value="記事のコミット" />
+    <MESSAGE value="記事修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="記事修正" />
   </component>
 </project>
