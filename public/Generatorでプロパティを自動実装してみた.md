@@ -205,15 +205,11 @@ public partial class HogeHolder
 ```
 
 #### 前提条件
-この機能は以下のように```explicit operator```を実装し、
-HPが直接floatにキャスト可能であることを前提にします。
-
-```csharp
 public struct HP
 {
     readonly float value;
     public static explicit operator float(HP value) => value.value;
-    public static explicit operator HP(float value) => return new HP(value);
+    public static explicit operator HP(float value) => new HP(value);
     
     public Hp(float value)
     {
