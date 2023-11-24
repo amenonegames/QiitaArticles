@@ -116,4 +116,49 @@ public void ChangeCharacterState( int stateNo ){ //変更処理 }
 
 そこで、まずこのIntをValueObjectにしてみます。
 
+```csharp
+public struct StateInt 
+{
+    public readonly int Value { get; private set; }
 
+    public StateInt( int value )
+    {
+        Value = value;
+    }
+
+    public static implicit operator int( StateInt stateInt )
+    {
+        return stateInt.Value;
+    }
+
+    public static implicit operator StateInt( int value )
+    {
+        return new StateInt( value );
+    }
+}
+```
+
+先程よりだいぶマシになりましたが、あらゆるIntを受け付けることに変わりはありません。
+
+そこで、このStateIntを、<font color=#f08300><strong>同質のEnum間のキャストだけを受け付けるStruct</strong></font>にしてみます。
+
+```csharp
+public struct StateInt 
+{
+    public readonly int Value { get; private set; }
+
+    public StateInt( PlayerState value )
+    {
+        Value = value;
+    }
+
+    public static implicit operator int( StateInt stateInt )
+    {
+        return stateInt.Value;
+    }
+
+    public static implicit operator StateInt( int value )
+    {
+        return new StateInt( value );
+    }
+}
