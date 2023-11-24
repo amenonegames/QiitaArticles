@@ -189,20 +189,20 @@ public struct StateInt
     
     public static implicit operator PlayerState (StateInt stateInt)
     {
-        if(stateInt._characterType != CharacterType.Player) 
+        if(stateInt.Type != StateType.Player) 
         {
             throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Player );
         }
-        return (PlayerState)stateInt._stateNo;
+        return (PlayerState)stateInt.Value;
     }
     
     public static implicit operator EnemyState (StateInt stateInt)
     {
-        if(stateInt._characterType != CharacterType.Enemy) 
+        if(stateInt.Type != StateType.Enemy) 
         {
             throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Enemy );
         }
-        return (EnemyState)stateInt._stateNo;
+        return (EnemyState)stateInt.Value;
     }
 }
 ```
@@ -225,7 +225,7 @@ public abstract class CharacterStateControllerBase: Monobehaviour
     protected abstract Sprite GetSprite(StateInt state);
 }
 
-pulic class PlayerStateController : CharacterStateControllerBase
+public class PlayerStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
@@ -238,7 +238,7 @@ pulic class PlayerStateController : CharacterStateControllerBase
     }
 }
 
-pulic class EnemyStateController : CharacterStateControllerBase
+public class EnemyStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
