@@ -200,7 +200,7 @@ public struct StateInt
     {
         if(stateInt.Type != StateType.Enemy) 
         {
-            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Enemy );
+            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + stateInt.Type + "キャスト型" + StateType.Enemy );
         }
         return (EnemyState)stateInt.Value;
     }
