@@ -8,7 +8,7 @@ updated_at: '2023-11-25T02:38:14+09:00'
 id: 26ede420cf916ac0b916
 organization_url_name: null
 slide: false
-ignorePublish: false
+ignorePublish: true
 ---
 # Enumを継承したい！
 エンジニアなら誰しも一度は「Enumを継承したい！」と思うものです。そうですよね？
@@ -189,20 +189,20 @@ public struct StateInt
     
     public static implicit operator PlayerState (StateInt stateInt)
     {
-        if(stateInt._characterType != CharacterType.Player) 
+        if(stateInt.Type != StateType.Player) 
         {
             throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Player );
         }
-        return (PlayerState)stateInt._stateNo;
+        return (PlayerState)stateInt.Value;
     }
     
     public static implicit operator EnemyState (StateInt stateInt)
     {
-        if(stateInt._characterType != CharacterType.Enemy) 
+        if(stateInt.Type != StateType.Enemy) 
         {
-            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + Type + "キャスト型" + CharacterType.Enemy );
+            throw new InvalidOperationException( "生成時とは異なる型にキャストされようとしています。生成時の型：" + stateInt.Type + "キャスト型" + StateType.Enemy );
         }
-        return (EnemyState)stateInt._stateNo;
+        return (EnemyState)stateInt.Value;
     }
 }
 ```
@@ -225,11 +225,11 @@ public abstract class CharacterStateControllerBase: Monobehaviour
     protected abstract Sprite GetSprite(StateInt state);
 }
 
-pulic class PlayerStateController : CharacterStateControllerBase
+public class PlayerStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
-    [SerializedField]
+    [SerializeField]
     private Dictionary<PlayerState,Sprite> _stateStandPictures;
     
     protected override Sprite GetSprite(StateInt state)
@@ -238,11 +238,11 @@ pulic class PlayerStateController : CharacterStateControllerBase
     }
 }
 
-pulic class EnemyStateController : CharacterStateControllerBase
+public class EnemyStateController : CharacterStateControllerBase
 {
     //実際はSerializedDictionaryなどを使ってください。
     //EnumをKeyにしたときのブロック化の問題は今回は割愛します。
-    [SerializedField]
+    [SerializeField]
     private Dictionary<EnemyState,Sprite> _stateStandPictures;
     
     protected override Sprite GetSprite(StateInt state)
