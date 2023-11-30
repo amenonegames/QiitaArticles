@@ -3,7 +3,7 @@ title: Enumを継承したい！と思ったときに僕らが求めているも
 tags:
   - C#
   - Unity
-private: false
+private: true
 updated_at: '2023-11-25T02:38:14+09:00'
 id: 26ede420cf916ac0b916
 organization_url_name: unity-game-dev-guild
@@ -23,7 +23,7 @@ EnumっぽいStructを作る内容など眺めては、「これなのか…？�
 Enumの何が我々をそんなに惹きつけるのでしょうか？
 何と言っても
 <ul>
-<li><font color=#f08300><strong>圧倒的作りやすさ</strong></font>
+<li><font color=#f08300><strong>要素編集が圧倒的に簡単</strong></font>
 <li><font color=#f08300><strong>UnitySerializeとの相性の良さ</strong></font>
 </ul>
 でしょう！
