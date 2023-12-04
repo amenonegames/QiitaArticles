@@ -1,11 +1,11 @@
 ---
 title: 【AudioMixer】exposed parametersを操作するクラスをエディタ拡張で自動生成する
 tags:
-  - 'Unity'
-  - 'C#'
+  - C#
+  - Unity
 private: true
-updated_at: ''
-id: null
+updated_at: '2023-12-05T03:08:35+09:00'
+id: 8fcd2e2703c26bb8b4b8
 organization_url_name: null
 slide: false
 ignorePublish: false
