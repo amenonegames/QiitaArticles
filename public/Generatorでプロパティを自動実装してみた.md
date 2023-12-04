@@ -8,7 +8,7 @@ updated_at: ''
 id: null
 organization_url_name: unity-game-dev-guild
 slide: false
-ignorePublish: true
+ignorePublish: false
 ---
 # なんの記事？
 メンバ変数からプロパティを自動実装するSource Generatorを作りました！
