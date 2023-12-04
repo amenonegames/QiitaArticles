@@ -3,10 +3,10 @@ title: Source Generatorでプロパティを自動実装してみた
 tags:
   - 'Unity'
   - 'C#'
-private: false
+private: true
 updated_at: ''
 id: null
-organization_url_name: null
+organization_url_name: unity-game-dev-guild
 slide: false
 ignorePublish: true
 ---
